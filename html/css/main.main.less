@@ -1,3 +1,5 @@
+@import "bootstrap/less/bootstrap";
+
 /* workaround for refresh issues in webkit-based browsers */
 @-webkit-keyframes androidBugfix {from { padding: 0; } to { padding: 0; }}
 body { -webkit-animation: androidBugfix infinite 1s; }
@@ -5,12 +7,17 @@ body { -webkit-animation: androidBugfix infinite 1s; }
 
 body {
     background-image: url('../img/bg.jpg');
-    text-align: center;
+    /* text-align: center; */
 }
 
 h1 {
     color: yellowgreen;
     text-decoration: underline;
+}
+
+h2 {
+    color: gold;
+    text-decoration: none;
 }
 
 p  {

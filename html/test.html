@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head>
+<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+<script>
+
+
+/*
+ * Return parameter value of name (case sensitive !)
+ */
+function get_value(parametername)
+{
+    readvalue=(location.search ? location.search.substring(1) : false);
+
+    if (readvalue)
+    {
+       parameter=readvalue.split('&');
+       for (i=0; i<parameter.length; i++)
+       {
+           if (parameter[i].split('=')[0] == parametername)
+             return parameter[i].split('=')[1];
+       }
+    }
+    return false;
+}
+
+function spectral_color(l) // RGB <- lambda l = < 380,780 > [nm]
+{
+  var M_PI=Math.PI;
+  var r=0,g,b;
+  if (l<380.0) r=     0.00;
+  else if (l<400.0) r=0.05-0.05*Math.sin(M_PI*(l-366.0)/ 33.0);
+  else if (l<435.0) r=     0.31*Math.sin(M_PI*(l-395.0)/ 81.0);
+  else if (l<460.0) r=     0.31*Math.sin(M_PI*(l-412.0)/ 48.0);
+  else if (l<540.0) r=     0.00;
+  else if (l<590.0) r=     0.99*Math.sin(M_PI*(l-540.0)/104.0);
+  else if (l<670.0) r=     1.00*Math.sin(M_PI*(l-507.0)/182.0);
+  else if (l<730.0) r=0.32-0.32*Math.sin(M_PI*(l-670.0)/128.0);
+  else              r=     0.00;
+       if (l<454.0) g=     0.00;
+  else if (l<617.0) g=     0.78*Math.sin(M_PI*(l-454.0)/163.0);
+  else              g=     0.00;
+       if (l<380.0) b=     0.00;
+  else if (l<400.0) b=0.14-0.14*Math.sin(M_PI*(l-364.0)/ 35.0);
+  else if (l<445.0) b=     0.96*Math.sin(M_PI*(l-395.0)/104.0);
+  else if (l<510.0) b=     0.96*Math.sin(M_PI*(l-377.0)/133.0);
+  else              b=     0.00;
+  var rgb = Math.floor(r*256)*65536+Math.floor(g*256)*256 + Math.floor(b*256);
+  rgb = '000000' + rgb.toString(16);
+  rgb = '#' + rgb.substr(-6).toUpperCase();
+
+  $('#color').html([r,g,b,rgb,l]);
+  $('body').css('background-color', rgb);
+}
+
+</script>
+</head><body>
+<div id='color'></div>
+<script>
+spectral_color(get_value('l'));
+</script>
+</body>
+</html>
